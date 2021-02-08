@@ -10,4 +10,4 @@ Run `make` to use docker to compile python and go protobuf files
 Default grpc generation for python is bad. Use https://github.com/danielgtaylor/python-betterproto instead.
 
 Compile command:
-```protoc -I protos\tensorbeat --python_betterproto_out=gen .\protos\tensorbeat\common.proto .\protos\tensorbeat\datastore.proto```
+```protoc -I protos\tensorbeat --python_betterproto_out=gen .\protos\tensorbeat\common.proto .\protos\tensorbeat\datalake.proto```
