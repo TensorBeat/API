@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package tensorbeat.common;
+
+option go_package = "./proto;proto";
+
+message File {
+    string uri = 1;
+    map<string, string> metadata = 2;
+
+    // Possible idea for non uri based id
+    // string id = 3; //uuid or hash
+}

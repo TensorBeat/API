@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package tensorbeat.datalake;
+
+option go_package = "./proto;proto";
+
+import "tensorbeat.common";
+
+
+message GetSongsRequest {
+    
+    /*
+        Pass in map of metadata to be matched on returned songs
+        {
+            "genre": "rock",
+            "genre": "metal",
+        }
+        These should be "ORed" so if song matches any of the metadata it is returned
+    */
+    map<string, string> metadata = 1; 
+
+}
+
+message GetSongsResponse {
+    repeated File songs = 1;
+}
+
+message AddSongsRequest {
+    repeated File songs = 1;
+}
+
+message AddSongsResponse {
+    bool successful = 1;
+}
+
+
+service DatalakeService {
+    rpc GetSongs(GetSongsRequest) returns (GetSongsResponse);
+    rpc AddSongs(AddSongsRequest) returns (AddSongsResponse);
+}
