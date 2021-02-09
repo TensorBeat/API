@@ -32,15 +32,20 @@ RUN pip3 install --upgrade pip
 
 # install buf https://buf.build/
 ENV PREFIX="/usr/local"  \
-    VERSION="0.36.0"
+    BUF_VERSION="0.36.0"
 
 RUN curl -sSL \
-    "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m).tar.gz" | \
+    "https://github.com/bufbuild/buf/releases/download/v${BUF_VERSION}/buf-$(uname -s)-$(uname -m).tar.gz" | \
     tar -xvzf - -C "${PREFIX}" --strip-components 1
 
 # install python-betterproto
 COPY --from=python-betterproto-builder /build/betterproto-2.0.0b2-py3-none-any.whl /build/betterproto-2.0.0b2-py3-none-any.whl
 RUN pip3 install /build/betterproto-2.0.0b2-py3-none-any.whl[compiler]
+
+# install protoc-gen-doc
+RUN curl -sSL \
+    "https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.4.1/protoc-gen-doc-1.4.1.linux-amd64.go1.15.2.tar.gz" | \
+    tar -xvzf - -C "/usr/local/bin" --strip-components 1
 
 # Setup for makefile usage
 WORKDIR /defs

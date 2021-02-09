@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := generate_protos
 
-PROTO_COMPILER_VERSION=v0.1.0
+PROTO_COMPILER_VERSION=v0.1.1
 
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))

@@ -4,3 +4,9 @@ plugins:
     out: gen/go
   - name: python_betterproto
     out: gen/python
+  - name: doc
+    out: docs
+    opt: markdown,API.md
+  - name: doc
+    out: gen/docs
+    opt: html,API.html
