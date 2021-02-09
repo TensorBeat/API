@@ -1,9 +1,17 @@
-.DEFAULT_GOAL := generate
+.DEFAULT_GOAL := generate_protos
+
+PROTO_COMPILER_VERSION=v0.1.0
+
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(dir $(mkfile_path))
 
-generate: generate_go_docker
+generate_protos:
+	docker run --rm -v $(current_dir):/defs gcr.io/rowan-senior-project/proto-compiler:$(PROTO_COMPILER_VERSION)
 
-generate_go_docker:
-	docker run --rm -v $(current_dir):/defs namely/protoc-all -d protos/** -l go
+
+build_builder_image: 
+	docker build -t gcr.io/rowan-senior-project/proto-compiler:$(V) .
+
+push_builder_image: build_builder_image
+	docker push gcr.io/rowan-senior-project/proto-compiler:$(V)

@@ -4,7 +4,7 @@ package tensorbeat.datalake;
 
 option go_package = "./proto;proto";
 
-import "common.proto";
+import "tensorbeat/common.proto";
 
 
 message GetSongsRequest {
