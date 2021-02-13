@@ -2,11 +2,23 @@ version: v1beta1
 plugins:
   - name: go
     out: gen/go
+  - name: go-grpc
+    out: gen/go
+  
   - name: python_betterproto
     out: gen/python
+
   - name: doc
     out: docs
     opt: markdown,API.md
   - name: doc
     out: gen/docs
     opt: html,API.html
+
+  - name: js
+    out: gen/grpc-web
+    opt: import_style=commonjs
+
+  - name: grpc-web
+    out: gen/grpc-web
+    opt: import_style=typescript,mode=grpcwebtext

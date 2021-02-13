@@ -47,6 +47,11 @@ RUN curl -sSL \
     "https://github.com/pseudomuto/protoc-gen-doc/releases/download/v1.4.1/protoc-gen-doc-1.4.1.linux-amd64.go1.15.2.tar.gz" | \
     tar -xvzf - -C "/usr/local/bin" --strip-components 1
 
+# install grpc-web
+RUN curl -sSL "https://github.com/grpc/grpc-web/releases/download/1.2.1/protoc-gen-grpc-web-1.2.1-linux-x86_64" -o ./protoc-gen-grpc-web-1.2.1-linux-x86_64 \
+    && mv ./protoc-gen-grpc-web-1.2.1-linux-x86_64 /usr/local/bin/protoc-gen-grpc-web \
+    && chmod +x /usr/local/bin/protoc-gen-grpc-web
+
 # Setup for makefile usage
 WORKDIR /defs
 ENTRYPOINT [ "buf" ]
