@@ -7,17 +7,27 @@ option go_package = "./proto;proto";
 import "tensorbeat/common.proto";
 
 
+enum LogicalOperator {
+    OR = 1;
+    AND = 2;
+    NOT = 3;
+}
+
 message GetSongsRequest {
     
     /*
-        Pass in map of metadata to be matched on returned songs
+        Pass in map of tags to be matched on returned songs
         {
             "genre": "rock",
             "genre": "metal",
         }
-        These should be "ORed" so if song matches any of the metadata it is returned
+        The tags will be combined using the logical operator:
+        - OR    means songs matching any of the tags will be returned.
+        - AND   means songs matching all of the tags will be returned.
+        - NOT   means songs that dont match any of the tags will be returned.
     */
-    map<string, string> metadata = 1; 
+    map<string, string> tags = 1;
+    LogicalOperator operator = 2;
 
 }
 
@@ -26,15 +36,34 @@ message GetSongsResponse {
 }
 
 message AddSongsRequest {
-    repeated tensorbeat.common.File songs = 1;
+    repeated tensorbeat.common.AddFile songs = 1;
 }
 
 message AddSongsResponse {
     bool successful = 1;
 }
 
+message AddTagsRequest {
+    string id = 1;
+    map<string, string> tags = 2;
+}
+
+message AddTagsResponse {
+    bool successful = 1;
+}
+
+message RemoveTagsRequest {
+    string id = 1;
+    map<string, string> tags = 2;
+}
+
+message RemoveTagsResponse {
+    bool successful = 1;
+}
 
 service DatalakeService {
     rpc GetSongs(GetSongsRequest) returns (GetSongsResponse);
     rpc AddSongs(AddSongsRequest) returns (AddSongsResponse);
+    rpc AddTags(AddTagsRequest) returns (AddTagsResponse);
+    rpc RemoveTags(RemoveTagsRequest) returns (RemoveTagsResponse);
 }

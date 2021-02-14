@@ -4,10 +4,18 @@ package tensorbeat.common;
 
 option go_package = "./proto;proto";
 
-message File {
-    string uri = 1;
-    map<string, string> metadata = 2;
 
-    // Possible idea for non uri based id
-    // string id = 3; //uuid or hash
+message AddFile {
+    string name = 1;
+    string uri = 2;
+    string contentType = 3;
+    map<string, string> tags = 4;
+}
+
+message File {
+    string id = 1;
+    string name = 2;
+    string uri = 3;
+    string contentType = 4;
+    map<string, string> tags = 5;
 }
