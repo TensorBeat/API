@@ -8,6 +8,7 @@ import "tensorbeat/common.proto";
 
 
 enum LogicalOperator {
+    UNKNOWN_LOGICAL_OPERATOR = 0;
     OR = 1;
     AND = 2;
     NOT = 3;

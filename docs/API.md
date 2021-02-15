@@ -4,15 +4,25 @@
 ## Table of Contents
 
 - [tensorbeat/common.proto](#tensorbeat/common.proto)
+    - [AddFile](#tensorbeat.common.AddFile)
+    - [AddFile.TagsEntry](#tensorbeat.common.AddFile.TagsEntry)
     - [File](#tensorbeat.common.File)
-    - [File.MetadataEntry](#tensorbeat.common.File.MetadataEntry)
+    - [File.TagsEntry](#tensorbeat.common.File.TagsEntry)
   
 - [tensorbeat/datalake.proto](#tensorbeat/datalake.proto)
     - [AddSongsRequest](#tensorbeat.datalake.AddSongsRequest)
     - [AddSongsResponse](#tensorbeat.datalake.AddSongsResponse)
+    - [AddTagsRequest](#tensorbeat.datalake.AddTagsRequest)
+    - [AddTagsRequest.TagsEntry](#tensorbeat.datalake.AddTagsRequest.TagsEntry)
+    - [AddTagsResponse](#tensorbeat.datalake.AddTagsResponse)
     - [GetSongsRequest](#tensorbeat.datalake.GetSongsRequest)
-    - [GetSongsRequest.MetadataEntry](#tensorbeat.datalake.GetSongsRequest.MetadataEntry)
+    - [GetSongsRequest.TagsEntry](#tensorbeat.datalake.GetSongsRequest.TagsEntry)
     - [GetSongsResponse](#tensorbeat.datalake.GetSongsResponse)
+    - [RemoveTagsRequest](#tensorbeat.datalake.RemoveTagsRequest)
+    - [RemoveTagsRequest.TagsEntry](#tensorbeat.datalake.RemoveTagsRequest.TagsEntry)
+    - [RemoveTagsResponse](#tensorbeat.datalake.RemoveTagsResponse)
+  
+    - [LogicalOperator](#tensorbeat.datalake.LogicalOperator)
   
     - [DatalakeService](#tensorbeat.datalake.DatalakeService)
   
@@ -27,6 +37,40 @@
 
 
 
+<a name="tensorbeat.common.AddFile"></a>
+
+### AddFile
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  |  |
+| uri | [string](#string) |  |  |
+| mimeType | [string](#string) |  |  |
+| tags | [AddFile.TagsEntry](#tensorbeat.common.AddFile.TagsEntry) | repeated |  |
+
+
+
+
+
+
+<a name="tensorbeat.common.AddFile.TagsEntry"></a>
+
+### AddFile.TagsEntry
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [string](#string) |  |  |
+
+
+
+
+
+
 <a name="tensorbeat.common.File"></a>
 
 ### File
@@ -35,17 +79,20 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| name | [string](#string) |  |  |
 | uri | [string](#string) |  |  |
-| metadata | [File.MetadataEntry](#tensorbeat.common.File.MetadataEntry) | repeated |  |
+| mimeType | [string](#string) |  |  |
+| tags | [File.TagsEntry](#tensorbeat.common.File.TagsEntry) | repeated |  |
 
 
 
 
 
 
-<a name="tensorbeat.common.File.MetadataEntry"></a>
+<a name="tensorbeat.common.File.TagsEntry"></a>
 
-### File.MetadataEntry
+### File.TagsEntry
 
 
 
@@ -83,7 +130,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
+| songs | [tensorbeat.common.AddFile](#tensorbeat.common.AddFile) | repeated |  |
 
 
 
@@ -105,6 +152,53 @@
 
 
 
+<a name="tensorbeat.datalake.AddTagsRequest"></a>
+
+### AddTagsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| tags | [AddTagsRequest.TagsEntry](#tensorbeat.datalake.AddTagsRequest.TagsEntry) | repeated |  |
+
+
+
+
+
+
+<a name="tensorbeat.datalake.AddTagsRequest.TagsEntry"></a>
+
+### AddTagsRequest.TagsEntry
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="tensorbeat.datalake.AddTagsResponse"></a>
+
+### AddTagsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| successful | [bool](#bool) |  |  |
+
+
+
+
+
+
 <a name="tensorbeat.datalake.GetSongsRequest"></a>
 
 ### GetSongsRequest
@@ -113,16 +207,17 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| metadata | [GetSongsRequest.MetadataEntry](#tensorbeat.datalake.GetSongsRequest.MetadataEntry) | repeated | Pass in map of metadata to be matched on returned songs { &#34;genre&#34;: &#34;rock&#34;, &#34;genre&#34;: &#34;metal&#34;, } These should be &#34;ORed&#34; so if song matches any of the metadata it is returned |
+| tags | [GetSongsRequest.TagsEntry](#tensorbeat.datalake.GetSongsRequest.TagsEntry) | repeated | Pass in map of tags to be matched on returned songs { &#34;genre&#34;: &#34;rock&#34;, &#34;genre&#34;: &#34;metal&#34;, } The tags will be combined using the logical operator: - OR means songs matching any of the tags will be returned. - AND means songs matching all of the tags will be returned. - NOT means songs that dont match any of the tags will be returned. |
+| operator | [LogicalOperator](#tensorbeat.datalake.LogicalOperator) |  |  |
 
 
 
 
 
 
-<a name="tensorbeat.datalake.GetSongsRequest.MetadataEntry"></a>
+<a name="tensorbeat.datalake.GetSongsRequest.TagsEntry"></a>
 
-### GetSongsRequest.MetadataEntry
+### GetSongsRequest.TagsEntry
 
 
 
@@ -150,7 +245,68 @@
 
 
 
+
+<a name="tensorbeat.datalake.RemoveTagsRequest"></a>
+
+### RemoveTagsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| tags | [RemoveTagsRequest.TagsEntry](#tensorbeat.datalake.RemoveTagsRequest.TagsEntry) | repeated |  |
+
+
+
+
+
+
+<a name="tensorbeat.datalake.RemoveTagsRequest.TagsEntry"></a>
+
+### RemoveTagsRequest.TagsEntry
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="tensorbeat.datalake.RemoveTagsResponse"></a>
+
+### RemoveTagsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| successful | [bool](#bool) |  |  |
+
+
+
+
+
  
+
+
+<a name="tensorbeat.datalake.LogicalOperator"></a>
+
+### LogicalOperator
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| UNKNOWN_LOGICAL_OPERATOR | 0 |  |
+| OR | 1 |  |
+| AND | 2 |  |
+| NOT | 3 |  |
+
 
  
 
@@ -166,6 +322,8 @@
 | ----------- | ------------ | ------------- | ------------|
 | GetSongs | [GetSongsRequest](#tensorbeat.datalake.GetSongsRequest) | [GetSongsResponse](#tensorbeat.datalake.GetSongsResponse) |  |
 | AddSongs | [AddSongsRequest](#tensorbeat.datalake.AddSongsRequest) | [AddSongsResponse](#tensorbeat.datalake.AddSongsResponse) |  |
+| AddTags | [AddTagsRequest](#tensorbeat.datalake.AddTagsRequest) | [AddTagsResponse](#tensorbeat.datalake.AddTagsResponse) |  |
+| RemoveTags | [RemoveTagsRequest](#tensorbeat.datalake.RemoveTagsRequest) | [RemoveTagsResponse](#tensorbeat.datalake.RemoveTagsResponse) |  |
 
  
 
