@@ -26,6 +26,8 @@ message GetSongsRequest {
         - OR    means songs matching any of the tags will be returned.
         - AND   means songs matching all of the tags will be returned.
         - NOT   means songs that dont match any of the tags will be returned.
+
+        Leaving the map blank will return everything
     */
     map<string, string> tags = 1;
     LogicalOperator operator = 2;
