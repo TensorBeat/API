@@ -15,14 +15,18 @@
     - [AddTagsRequest](#tensorbeat.datalake.AddTagsRequest)
     - [AddTagsRequest.TagsEntry](#tensorbeat.datalake.AddTagsRequest.TagsEntry)
     - [AddTagsResponse](#tensorbeat.datalake.AddTagsResponse)
-    - [GetSongsRequest](#tensorbeat.datalake.GetSongsRequest)
-    - [GetSongsRequest.TagsEntry](#tensorbeat.datalake.GetSongsRequest.TagsEntry)
-    - [GetSongsResponse](#tensorbeat.datalake.GetSongsResponse)
+    - [GetAllSongsRequest](#tensorbeat.datalake.GetAllSongsRequest)
+    - [GetAllSongsResponse](#tensorbeat.datalake.GetAllSongsResponse)
+    - [GetSongsByIDsRequest](#tensorbeat.datalake.GetSongsByIDsRequest)
+    - [GetSongsByIDsResponse](#tensorbeat.datalake.GetSongsByIDsResponse)
+    - [GetSongsByTagsRequest](#tensorbeat.datalake.GetSongsByTagsRequest)
+    - [GetSongsByTagsRequest.TagsEntry](#tensorbeat.datalake.GetSongsByTagsRequest.TagsEntry)
+    - [GetSongsByTagsResponse](#tensorbeat.datalake.GetSongsByTagsResponse)
     - [RemoveTagsRequest](#tensorbeat.datalake.RemoveTagsRequest)
     - [RemoveTagsRequest.TagsEntry](#tensorbeat.datalake.RemoveTagsRequest.TagsEntry)
     - [RemoveTagsResponse](#tensorbeat.datalake.RemoveTagsResponse)
   
-    - [LogicalOperator](#tensorbeat.datalake.LogicalOperator)
+    - [Filter](#tensorbeat.datalake.Filter)
   
     - [DatalakeService](#tensorbeat.datalake.DatalakeService)
   
@@ -199,25 +203,82 @@
 
 
 
-<a name="tensorbeat.datalake.GetSongsRequest"></a>
+<a name="tensorbeat.datalake.GetAllSongsRequest"></a>
 
-### GetSongsRequest
+### GetAllSongsRequest
+
+
+
+
+
+
+
+<a name="tensorbeat.datalake.GetAllSongsResponse"></a>
+
+### GetAllSongsResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| tags | [GetSongsRequest.TagsEntry](#tensorbeat.datalake.GetSongsRequest.TagsEntry) | repeated | Pass in map of tags to be matched on returned songs { &#34;genre&#34;: &#34;rock&#34;, &#34;genre&#34;: &#34;metal&#34;, } The tags will be combined using the logical operator: - OR means songs matching any of the tags will be returned. - AND means songs matching all of the tags will be returned. - NOT means songs that dont match any of the tags will be returned. |
-| operator | [LogicalOperator](#tensorbeat.datalake.LogicalOperator) |  |  |
+| songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
 
 
 
 
 
 
-<a name="tensorbeat.datalake.GetSongsRequest.TagsEntry"></a>
+<a name="tensorbeat.datalake.GetSongsByIDsRequest"></a>
 
-### GetSongsRequest.TagsEntry
+### GetSongsByIDsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| ids | [string](#string) | repeated |  |
+
+
+
+
+
+
+<a name="tensorbeat.datalake.GetSongsByIDsResponse"></a>
+
+### GetSongsByIDsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
+
+
+
+
+
+
+<a name="tensorbeat.datalake.GetSongsByTagsRequest"></a>
+
+### GetSongsByTagsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| tags | [GetSongsByTagsRequest.TagsEntry](#tensorbeat.datalake.GetSongsByTagsRequest.TagsEntry) | repeated | Pass in map of tags to be matched on returned songs EX: { &#34;genre&#34;: &#34;rock&#34;, &#34;spectrogram_id&#34;: &#34;*&#34;, } The tags will be combined using the filter: - ANY means songs matching any of the tags will be returned. - ALL means songs matching all of the tags will be returned. - NONE means songs that dont match any of the tags will be returned.
+
+Using an * for the value will return any song with that tag set. Using a specific value for the tag will return only songs with that exact combination of Key/Value |
+| filter | [Filter](#tensorbeat.datalake.Filter) |  |  |
+
+
+
+
+
+
+<a name="tensorbeat.datalake.GetSongsByTagsRequest.TagsEntry"></a>
+
+### GetSongsByTagsRequest.TagsEntry
 
 
 
@@ -231,9 +292,9 @@
 
 
 
-<a name="tensorbeat.datalake.GetSongsResponse"></a>
+<a name="tensorbeat.datalake.GetSongsByTagsResponse"></a>
 
-### GetSongsResponse
+### GetSongsByTagsResponse
 
 
 
@@ -295,17 +356,16 @@
  
 
 
-<a name="tensorbeat.datalake.LogicalOperator"></a>
+<a name="tensorbeat.datalake.Filter"></a>
 
-### LogicalOperator
+### Filter
 
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| UNKNOWN_LOGICAL_OPERATOR | 0 |  |
-| OR | 1 |  |
-| AND | 2 |  |
-| NOT | 3 |  |
+| ANY | 0 |  |
+| ALL | 1 |  |
+| NONE | 2 |  |
 
 
  
@@ -320,7 +380,9 @@
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| GetSongs | [GetSongsRequest](#tensorbeat.datalake.GetSongsRequest) | [GetSongsResponse](#tensorbeat.datalake.GetSongsResponse) |  |
+| GetAllSongs | [GetAllSongsRequest](#tensorbeat.datalake.GetAllSongsRequest) | [GetAllSongsResponse](#tensorbeat.datalake.GetAllSongsResponse) |  |
+| GetSongsByIDs | [GetSongsByIDsRequest](#tensorbeat.datalake.GetSongsByIDsRequest) | [GetSongsByIDsResponse](#tensorbeat.datalake.GetSongsByIDsResponse) |  |
+| GetSongsByTags | [GetSongsByTagsRequest](#tensorbeat.datalake.GetSongsByTagsRequest) | [GetSongsByTagsResponse](#tensorbeat.datalake.GetSongsByTagsResponse) |  |
 | AddSongs | [AddSongsRequest](#tensorbeat.datalake.AddSongsRequest) | [AddSongsResponse](#tensorbeat.datalake.AddSongsResponse) |  |
 | AddTags | [AddTagsRequest](#tensorbeat.datalake.AddTagsRequest) | [AddTagsResponse](#tensorbeat.datalake.AddTagsResponse) |  |
 | RemoveTags | [RemoveTagsRequest](#tensorbeat.datalake.RemoveTagsRequest) | [RemoveTagsResponse](#tensorbeat.datalake.RemoveTagsResponse) |  |

@@ -7,34 +7,36 @@ option go_package = "./proto;proto";
 import "tensorbeat/common.proto";
 
 
-enum LogicalOperator {
-    UNKNOWN_LOGICAL_OPERATOR = 0;
-    OR = 1;
-    AND = 2;
-    NOT = 3;
+enum Filter {
+    ANY = 0;
+    ALL = 1;
+    NONE = 2;
 }
 
-message GetSongsRequest {
+message GetSongsByTagsRequest {
     
     /*
         Pass in map of tags to be matched on returned songs
+        EX:
         {
             "genre": "rock",
-            "genre": "metal",
+            "spectrogram_id": "*",
         }
-        The tags will be combined using the logical operator:
-        - OR    means songs matching any of the tags will be returned.
-        - AND   means songs matching all of the tags will be returned.
-        - NOT   means songs that dont match any of the tags will be returned.
+        The tags will be combined using the filter:
+        - ANY   means songs matching any of the tags will be returned.
+        - ALL   means songs matching all of the tags will be returned.
+        - NONE  means songs that dont match any of the tags will be returned.
 
-        Leaving the map blank will return everything
+        Using an * for the value will return any song with that tag set.
+        Using a specific value for the tag will return only songs with that exact combination of Key/Value
+
     */
     map<string, string> tags = 1;
-    LogicalOperator operator = 2;
+    Filter filter = 2;
 
 }
 
-message GetSongsResponse {
+message GetSongsByTagsResponse {
     repeated tensorbeat.common.File songs = 1;
 }
 
@@ -64,8 +66,23 @@ message RemoveTagsResponse {
     bool successful = 1;
 }
 
+message GetAllSongsRequest {}
+message GetAllSongsResponse {
+    repeated tensorbeat.common.File songs = 1;
+}
+
+message GetSongsByIDsRequest {
+    repeated string ids = 1;
+}
+message GetSongsByIDsResponse {
+    repeated tensorbeat.common.File songs = 1;
+}
+
 service DatalakeService {
-    rpc GetSongs(GetSongsRequest) returns (GetSongsResponse);
+    rpc GetAllSongs(GetAllSongsRequest) returns (GetAllSongsResponse);
+    rpc GetSongsByIDs(GetSongsByIDsRequest) returns (GetSongsByIDsResponse);
+
+    rpc GetSongsByTags(GetSongsByTagsRequest) returns (GetSongsByTagsResponse);
     rpc AddSongs(AddSongsRequest) returns (AddSongsResponse);
     rpc AddTags(AddTagsRequest) returns (AddTagsResponse);
     rpc RemoveTags(RemoveTagsRequest) returns (RemoveTagsResponse);
