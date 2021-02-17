@@ -14,8 +14,19 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
+      - name: Setup gcloud CLI
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '290.0.1'
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: Authorize Docker
+      - run: gcloud --quiet auth configure-docker
+        
       - name: Build Protos
         run: make
+        
       - name: Zip Generated Code
         run: zip -r api.zip gen/
       - name: Create Release
