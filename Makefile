@@ -8,6 +8,7 @@ current_dir := $(dir $(mkfile_path))
 
 generate_protos:
 	docker run --rm -v $(current_dir):/defs gcr.io/rowan-senior-project/proto-compiler:$(PROTO_COMPILER_VERSION)
+	docker run --rm -v $(current_dir):/defs gcr.io/rowan-senior-project/proto-compiler:$(PROTO_COMPILER_VERSION) build -o gen/image.bin
 
 
 build_builder_image: 
