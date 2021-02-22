@@ -25,6 +25,9 @@ jobs:
         
       - name: Build Protos
         run: make
+
+      - name: Build Proto image
+        run: buf build -o gen/image.bin
         
       - name: Zip Generated Code
         run: zip -r api.zip gen/

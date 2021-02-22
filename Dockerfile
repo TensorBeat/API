@@ -21,7 +21,7 @@ RUN git checkout 59f5f88c0d5f21cfeb819399c3f72634e8422fe6 && \
     mv ./dist/betterproto-2.0.0b2-py3-none-any.whl /build/betterproto-2.0.0b2-py3-none-any.whl
 
 
-FROM namely/protoc-all as prod
+FROM namely/protoc-all:1.34_3 as prod
 
 RUN apt update -y && \
     apt install -y \
@@ -51,6 +51,9 @@ RUN curl -sSL \
 RUN curl -sSL "https://github.com/grpc/grpc-web/releases/download/1.2.1/protoc-gen-grpc-web-1.2.1-linux-x86_64" -o ./protoc-gen-grpc-web-1.2.1-linux-x86_64 \
     && mv ./protoc-gen-grpc-web-1.2.1-linux-x86_64 /usr/local/bin/protoc-gen-grpc-web \
     && chmod +x /usr/local/bin/protoc-gen-grpc-web
+
+# install npm grpc-tools & ts
+RUN npm install grpc-tools@1.10.0 grpc_tools_node_protoc_ts@5.1.3 --global
 
 # Setup for makefile usage
 WORKDIR /defs
