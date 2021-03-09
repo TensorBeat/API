@@ -209,6 +209,12 @@
 
 
 
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| token | [string](#string) | optional |  |
+| limit | [int32](#int32) | optional |  |
+
+
 
 
 
@@ -222,6 +228,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
+| token | [string](#string) |  |  |
 
 
 
@@ -237,6 +244,8 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | ids | [string](#string) | repeated |  |
+| token | [string](#string) | optional |  |
+| limit | [int32](#int32) | optional |  |
 
 
 
@@ -252,6 +261,7 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
+| token | [string](#string) |  |  |
 
 
 
@@ -270,6 +280,8 @@
 
 Using an * for the value will return any song with that tag set. Using a specific value for the tag will return only songs with that exact combination of Key/Value |
 | filter | [Filter](#tensorbeat.datalake.Filter) |  |  |
+| token | [string](#string) | optional |  |
+| limit | [int32](#int32) | optional |  |
 
 
 
@@ -301,6 +313,7 @@ Using an * for the value will return any song with that tag set. Using a specifi
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
+| token | [string](#string) |  |  |
 
 
 
