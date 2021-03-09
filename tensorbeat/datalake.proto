@@ -13,16 +13,6 @@ enum Filter {
     NONE = 2;
 }
 
-message GetSongsByLimitRequest {
-    string token = 1;
-    string limit = 2;
-}
-
-message GetSongsByLimitResponse {
-    repeated tensorbeat.common.File songs = 1;
-    string token = 2;
-}
-
 message GetSongsByTagsRequest {
     
     /*
@@ -43,11 +33,14 @@ message GetSongsByTagsRequest {
     */
     map<string, string> tags = 1;
     Filter filter = 2;
+    optional string token = 3;
+    optional int32 limit = 4;
 
 }
 
 message GetSongsByTagsResponse {
     repeated tensorbeat.common.File songs = 1;
+    string token = 2;
 }
 
 message AddSongsRequest {
@@ -76,21 +69,27 @@ message RemoveTagsResponse {
     bool successful = 1;
 }
 
-message GetAllSongsRequest {}
+message GetAllSongsRequest {
+    optional string token = 1;
+    optional int32 limit = 2;
+}
 message GetAllSongsResponse {
     repeated tensorbeat.common.File songs = 1;
+    string token = 2;
 }
 
 message GetSongsByIDsRequest {
     repeated string ids = 1;
+    optional string token = 2;
+    optional int32 limit = 3;
 }
 message GetSongsByIDsResponse {
     repeated tensorbeat.common.File songs = 1;
+    string token = 2;
 }
 
 service DatalakeService {
     rpc GetAllSongs(GetAllSongsRequest) returns (GetAllSongsResponse);
-    rpc GetSongsByLimit(GetSongsByLimitRequest) returns (GetSongsByLimitResponse);
     rpc GetSongsByIDs(GetSongsByIDsRequest) returns (GetSongsByIDsResponse);
 
     rpc GetSongsByTags(GetSongsByTagsRequest) returns (GetSongsByTagsResponse);
