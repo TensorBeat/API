@@ -33,14 +33,14 @@ message GetSongsByTagsRequest {
     */
     map<string, string> tags = 1;
     Filter filter = 2;
-    optional int64 pageToken = 3;
-    optional int64 pageSize = 4;
+    optional int64 page_token = 3;
+    optional int64 page_size = 4;
 
 }
 
 message GetSongsByTagsResponse {
     repeated tensorbeat.common.File songs = 1;
-    int64 nextToken = 2;
+    int64 next_page_token = 2;
 }
 
 message AddSongsRequest {
@@ -70,22 +70,22 @@ message RemoveTagsResponse {
 }
 
 message GetAllSongsRequest {
-    optional int64 pageToken = 1;
-    optional int64 pageSize = 2;
+    optional int64 page_token = 1;
+    optional int64 page_size = 2;
 }
 message GetAllSongsResponse {
     repeated tensorbeat.common.File songs = 1;
-    int64 nextToken = 2;
+    int64 next_page_token = 2;
 }
 
 message GetSongsByIDsRequest {
     repeated string ids = 1;
-    optional int64 pageToken = 2;
-    optional int64 pageSize = 3;
+    optional int64 page_token = 2;
+    optional int64 page_size = 3;
 }
 message GetSongsByIDsResponse {
     repeated tensorbeat.common.File songs = 1;
-    int64 nextToken = 2;
+    int64 next_page_token = 2;
 }
 
 service DatalakeService {
