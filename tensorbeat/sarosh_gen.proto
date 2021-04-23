@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package tensorbeat.sarosh_gen;
+
+option go_package = "./proto;proto";
+
+import "tensorbeat/common.proto";
+
+message GenerateMusicRequest {
+    string yt_playlist_URL = 1;
+}
+
+message GenerateMusicResponse {
+    bytes song = 1;
+}
+
+
+
+
+service SaroshGenerator {
+
+    rpc GenerateMusic(GenerateMusicRequest) returns (GenerateMusicResponse);
+
+
+}
