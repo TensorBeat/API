@@ -31,6 +31,8 @@
     - [DatalakeService](#tensorbeat.datalake.DatalakeService)
   
 - [tensorbeat/recommender.proto](#tensorbeat/recommender.proto)
+    - [GetSongsRequest](#tensorbeat.recommender.GetSongsRequest)
+    - [GetSongsResponse](#tensorbeat.recommender.GetSongsResponse)
     - [RecommenderRequest](#tensorbeat.recommender.RecommenderRequest)
     - [RecommenderResponse](#tensorbeat.recommender.RecommenderResponse)
   
@@ -420,6 +422,31 @@ Using an * for the value will return any song with that tag set. Using a specifi
 <p align="right"><a href="#top">Top</a></p>
 
 ## tensorbeat/recommender.proto
+
+
+
+<a name="tensorbeat.recommender.GetSongsRequest"></a>
+
+### GetSongsRequest
+
+
+
+
+
+
+
+<a name="tensorbeat.recommender.GetSongsResponse"></a>
+
+### GetSongsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| song_name | [string](#string) | repeated |  |
+
+
+
 
 
 
