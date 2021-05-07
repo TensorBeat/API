@@ -425,7 +425,7 @@ Using an * for the value will return any song with that tag set. Using a specifi
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| yt_playlist_URL | [string](#string) |  |  |
+| notes | [string](#string) | repeated |  |
 
 
 
@@ -440,7 +440,7 @@ Using an * for the value will return any song with that tag set. Using a specifi
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| song | [bytes](#bytes) |  |  |
+| notes | [string](#string) | repeated |  |
 
 
 

@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package tensorbeat.recommender;
+
+option go_package = "./proto;proto";
+
+import "tensorbeat/common.proto";
+
+message RecommenderRequest {
+  string song_name = 1;
+}
+
+message RecommenderResponse {
+  repeated string songs = 1;
+}
+
+
+service RecommenderService {
+  rpc GenerateMusic(RecommenderRequest) returns (RecommenderResponse);
+}
