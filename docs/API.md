@@ -30,6 +30,12 @@
   
     - [DatalakeService](#tensorbeat.datalake.DatalakeService)
   
+- [tensorbeat/recommender.proto](#tensorbeat/recommender.proto)
+    - [RecommenderRequest](#tensorbeat.recommender.RecommenderRequest)
+    - [RecommenderResponse](#tensorbeat.recommender.RecommenderResponse)
+  
+    - [RecommenderService](#tensorbeat.recommender.RecommenderService)
+  
 - [tensorbeat/sarosh_gen.proto](#tensorbeat/sarosh_gen.proto)
     - [GenerateMusicRequest](#tensorbeat.sarosh_gen.GenerateMusicRequest)
     - [GenerateMusicResponse](#tensorbeat.sarosh_gen.GenerateMusicResponse)
@@ -405,6 +411,62 @@ Using an * for the value will return any song with that tag set. Using a specifi
 | AddSongs | [AddSongsRequest](#tensorbeat.datalake.AddSongsRequest) | [AddSongsResponse](#tensorbeat.datalake.AddSongsResponse) |  |
 | AddTags | [AddTagsRequest](#tensorbeat.datalake.AddTagsRequest) | [AddTagsResponse](#tensorbeat.datalake.AddTagsResponse) |  |
 | RemoveTags | [RemoveTagsRequest](#tensorbeat.datalake.RemoveTagsRequest) | [RemoveTagsResponse](#tensorbeat.datalake.RemoveTagsResponse) |  |
+
+ 
+
+
+
+<a name="tensorbeat/recommender.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tensorbeat/recommender.proto
+
+
+
+<a name="tensorbeat.recommender.RecommenderRequest"></a>
+
+### RecommenderRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| song_name | [string](#string) |  |  |
+
+
+
+
+
+
+<a name="tensorbeat.recommender.RecommenderResponse"></a>
+
+### RecommenderResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| songs | [string](#string) | repeated |  |
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+<a name="tensorbeat.recommender.RecommenderService"></a>
+
+### RecommenderService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| RecommendSong | [RecommenderRequest](#tensorbeat.recommender.RecommenderRequest) | [RecommenderResponse](#tensorbeat.recommender.RecommenderResponse) |  |
 
  
 
