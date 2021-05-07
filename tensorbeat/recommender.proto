@@ -25,4 +25,5 @@ message RecommenderResponse {
 
 service RecommenderService {
   rpc RecommendSong(RecommenderRequest) returns (RecommenderResponse);
+  rpc GetSongs(GetSongsRequest) returns (GetSongsResponse);
 }
