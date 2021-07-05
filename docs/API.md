@@ -243,6 +243,7 @@
 | ----- | ---- | ----- | ----------- |
 | songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
 | next_page_token | [int64](#int64) |  |  |
+| total_size | [int64](#int64) |  |  |
 
 
 
@@ -276,6 +277,7 @@
 | ----- | ---- | ----- | ----------- |
 | songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
 | next_page_token | [int64](#int64) |  |  |
+| total_size | [int64](#int64) |  |  |
 
 
 
@@ -328,6 +330,7 @@ Using an * for the value will return any song with that tag set. Using a specifi
 | ----- | ---- | ----- | ----------- |
 | songs | [tensorbeat.common.File](#tensorbeat.common.File) | repeated |  |
 | next_page_token | [int64](#int64) |  |  |
+| total_size | [int64](#int64) |  |  |
 
 
 
